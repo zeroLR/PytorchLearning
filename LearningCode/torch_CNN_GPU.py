@@ -6,7 +6,6 @@ python: 3.7.6
 torchvision
 """
 import os
-import sys
 import torch
 import torch.nn as nn
 import torch.utils.data as Data
@@ -116,5 +115,5 @@ def Net_Save():
         os.mkdir(path)
     torch.save(cnn, path + "\\" +'FashionMnist_CNN_GPU.pkl')
     torch.save(cnn.state_dict(), path + "\\" +'FashionMnist_CNN_GPU_params.pkl')   
-    
+
 Net_Save()
