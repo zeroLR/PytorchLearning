@@ -45,7 +45,6 @@ class CNN(nn.Module):
         return output
 
 cnn = CNN()
-Net_Restore(params=True)
 
 cnn.cuda()  # 將 model 所有 parameters 和 buffers 轉成GPU可執行
 
