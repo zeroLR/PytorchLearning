@@ -107,8 +107,8 @@ plt.text(-200,120,'accuracy: %.2f' % accuracy_print,fontdict={'size': 20, 'color
 
 plt.show()
 
-# save net
-path = "torch_NetSave"
+# 保存Model
+path = "torch_ModelSave"
 def Model_Save():
     if not os.path.isdir(path):
         os.mkdir(path)
