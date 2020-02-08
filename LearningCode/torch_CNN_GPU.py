@@ -109,10 +109,10 @@ plt.show()
 
 # save net
 path = "torch_NetSave" 
-def Net_Save():
+def Model_Save():
     if not os.path.isdir(path):
         os.mkdir(path)
     torch.save(cnn, path + "\\" +'FashionMnist_CNN_GPU.pkl')
     torch.save(cnn.state_dict(), path + "\\" +'FashionMnist_CNN_GPU_params.pkl')   
 
-Net_Save()
+Model_Save()
