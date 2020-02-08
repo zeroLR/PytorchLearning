@@ -18,7 +18,7 @@ BATCH_SIZE = 50
 LR = 0.001
 DOWNLOAD_MNIST = True         
 
-
+# 使用Fashion-MNIST訓練集
 train_data = torchvision.datasets.FashionMNIST(root='./FashionMnist/', train=True, transform=torchvision.transforms.ToTensor(), download=DOWNLOAD_MNIST)
 train_loader = Data.DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
 print('\ntrain_data size: ', train_data.data.size())
