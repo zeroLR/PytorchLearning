@@ -13,17 +13,17 @@ import torch.optim as optim
 import torchvision
 import matplotlib.pyplot as plt
 
-EPOCH = 2
-BATCH_SIZE = 50
-LR = 0.001
-DOWNLOAD_MNIST = True         
+EPOCH = 2               # 進行2批運算
+BATCH_SIZE = 50         # 50張為一組
+LR = 0.001              # 學習速度
+DOWNLOAD_MNIST = True   # 是否下載資料集         
 
 # 使用Fashion-MNIST訓練集
-train_data = torchvision.datasets.FashionMNIST(root='./FashionMnist/', train=True, transform=torchvision.transforms.ToTensor(), download=DOWNLOAD_MNIST)
+train_data = torchvision.datasets.FashionMNIST(root='./FashionMnist/', train=True, transform=torchvision.transforms.ToTensor(), download=DOWNLOAD_MNIST)    # 訓練資料
 train_loader = Data.DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
 print('\ntrain_data size: ', train_data.data.size())
 
-test_data = torchvision.datasets.FashionMNIST(root='./FashionMnist/', train=False)
+test_data = torchvision.datasets.FashionMNIST(root='./FashionMnist/', train=False)  # 測試資料
 print('\ntest_data size: ', test_data.data.size())
 
 test_x = torch.unsqueeze(test_data.data, dim=1).type(torch.FloatTensor)[:2000].cuda()/255.     # Tensor on GPU
@@ -48,11 +48,11 @@ cnn = CNN()
 
 cnn.cuda()  # 將 model 所有 parameters 和 buffers 轉成GPU可執行
 
-optimizer = optim.Adam(cnn.parameters(), lr=LR)     # 設定優化器, lr為學習速度, 部分演算法使用 momentum動量 加速收斂
+optimizer = optim.Adam(cnn.parameters(), lr=LR)     # 設定優化器, 部分演算法使用 momentum動量來加速收斂
 loss_func = nn.CrossEntropyLoss()                   # 損失函數
 
-loss_print = 0
-accuracy_print = 0
+loss_print = 0      # 儲存loss值
+accuracy_print = 0  # 儲存準確值
 
 # 批量訓練
 for epoch in range(EPOCH):
@@ -78,7 +78,7 @@ for epoch in range(EPOCH):
             loss_print = loss.data.cpu().numpy()
             accuracy_print = accuray
 
-test_output = cnn(test_x[:20])  # 運算20張圖
+test_output = cnn(test_x[:20])  # 輸出20張圖
 
 pred_y = torch.max(test_output, 1)[1].cuda().data # 將計算移至GPU
 
@@ -88,7 +88,7 @@ print(test_y[:20], 'real number')
 # 顯示預測和測試圖
 f, axarr = plt.subplots(2,20)
 for i in range(20):
-    #  顯示預測結果
+    #  顯示預測圖
     if pred_y[i] == test_y[i]:
         axarr[0,i].imshow(train_data.data[pred_y[i]].numpy(), cmap='gray')
         axarr[0,i].text(9,-8,'%i' % pred_y[i],fontdict={'size': 10, 'color':  'blue'})
@@ -108,11 +108,11 @@ plt.text(-200,120,'accuracy: %.2f' % accuracy_print,fontdict={'size': 20, 'color
 plt.show()
 
 # save net
-path = "torch_NetSave" 
+path = "torch_NetSave"
 def Model_Save():
     if not os.path.isdir(path):
         os.mkdir(path)
     torch.save(cnn, path + "\\" +'FashionMnist_CNN_GPU.pkl')
-    torch.save(cnn.state_dict(), path + "\\" +'FashionMnist_CNN_GPU_params.pkl')   
+    torch.save(cnn.state_dict(), path + "\\" +'FashionMnist_CNN_GPU_params.pkl')
 
 Model_Save()
