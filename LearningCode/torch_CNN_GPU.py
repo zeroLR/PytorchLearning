@@ -73,10 +73,10 @@ for epoch in range(EPOCH):
 
             pred_y = torch.max(test_output, 1)[1].cuda().data   # 將計算移至GPU
 
-            accuray = torch.sum(pred_y == test_y).type(torch.FloatTensor) / test_y.size(0)
-            print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.cpu().numpy(), '| test accuracy: %.2f' % accuray)
+            accuracy = torch.sum(pred_y == test_y).type(torch.FloatTensor) / test_y.size(0)
+            print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.cpu().numpy(), '| test accuracy: %.2f' % accuracy)
             loss_print = loss.data.cpu().numpy()
-            accuracy_print = accuray
+            accuracy_print = accuracy
 
 test_output = cnn(test_x[:20])  # 輸出20張圖
 
