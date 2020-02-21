@@ -12,6 +12,7 @@ import torch.utils.data as Data
 import torch.optim as optim
 import torchvision
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 EPOCH = 2               # 進行2批運算
 BATCH_SIZE = 50         # 50張為一組
@@ -69,12 +70,13 @@ for epoch in range(EPOCH):
 
         # 每50步顯示一次結果
         if step % 50 == 0:
+            time = datetime.now()
             test_output = cnn(test_x)
 
             pred_y = torch.max(test_output, 1)[1].cuda().data   # 將計算移至GPU
 
             accuracy = torch.sum(pred_y == test_y).type(torch.FloatTensor) / test_y.size(0)
-            print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.cpu().numpy(), '| test accuracy: %.2f' % accuracy)
+            print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.cpu().numpy(), '| test accuracy: %.2f' % accuracy, ' | time: ',time)
             loss_print = loss.data.cpu().numpy()
             accuracy_print = accuracy
 
