@@ -27,7 +27,7 @@ print('\ntrain_data size: ', train_data.data.size())
 test_data = torchvision.datasets.FashionMNIST(root='./FashionMnist/', train=False)  # 測試資料
 print('\ntest_data size: ', test_data.data.size())
 
-test_x = torch.unsqueeze(test_data.data, dim=1).type(torch.FloatTensor)[:2000].cuda()/255.     # Tensor on GPU
+test_x = torch.unsqueeze(test_data.data, dim=1).type(torch.FloatTensor)[:2000].cuda()/255.    # Tensor on GPU
 test_y = test_data.targets[:2000].cuda()
 
 class CNN(nn.Module):
@@ -39,8 +39,8 @@ class CNN(nn.Module):
         self.out = nn.Linear(32 * 7 * 7, 10)                                                                        # 輸出層, 資料集有10個分類(0~9)
     
     def forward(self, x):
-        x = self.conv1(x)
-        x = self.conv2(x)           # (batch, 32, 7, 7) 這邊會加入batch(BATCH_SIZE)
+        x = self.conv1(x)           # (batch, 32, 7, 7) 這邊會加入batch(BATCH_SIZE)
+        x = self.conv2(x)
         x = x.view(x.size(0), -1)   # (batch, 32 * 7 * 7) 保留batch,將後面數據轉成同一維度
         output = self.out(x)
         return output
